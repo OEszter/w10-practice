@@ -1,7 +1,30 @@
-const numbers = [1, 2, 3, 4, 5];
+const api_key = "UrVEdu94RY5is7DgVnxOYNrv1PRPxXHMl9tyXdzh"
 
-const sum = numbers.reduce(function(total, num) {
-  return total + num;
-}, "tizenkettő-");
+const fetchUrl = async (url) => {
+  const data = await fetch(url)
+  return data.json()
+}
 
-console.log(sum)
+const apodComponent = ({ title, url, date, explanation }) => {
+  // const title = astrologyPictureOfTheDay.title
+  // const url = astrologyPictureOfTheDay.url
+
+  // const { title, url, date } = astrologyPictureOfTheDay
+
+  console.log(title)
+  console.log(url)
+  console.log(date)
+  console.log(explanation)
+}
+
+async function init() {
+  const data = await fetchUrl(`https://api.nasa.gov/planetary/apod?api_key=${api_key}&count=5`)
+  console.log(data)
+
+  for (let i = 0; i < data.length; i++) {
+    //console.log(data[i].title)
+    apodComponent(data[i])
+  }
+}
+
+init()
